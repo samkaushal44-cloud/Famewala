@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Track Order</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: linear-gradient(135deg,#667eea,#764ba2);
+      text-align: center;
+      padding-top: 80px;
+      color: white;
+    }
+
+    .box {
+      background: white;
+      color: black;
+      padding: 20px;
+      border-radius: 20px;
+      width: 300px;
+      margin: auto;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background: green;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>📦 Track Order</h2>
+
+  <input id="id" placeholder="Enter Order ID">
+  <button onclick="check()">Check</button>
+
+  <div id="result"></div>
+</div>
+
+<script>
+function check(){
+  let orders=JSON.parse(localStorage.getItem("orders"))||[];
+  let o=orders.find(x=>x.id===id.value);
+
+  if(o){
+    result.innerHTML=`Status: ${o.status}`;
+  } else {
+    result.innerHTML="Not Found ❌";
+  }
+}
+</script>
+
+</body>
+</html>

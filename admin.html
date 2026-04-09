@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .approve {
+      background: green;
+      color: white;
+    }
+
+    .reject {
+      background: red;
+      color: white;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<h2>👨‍💻 Admin Panel</h2>
+
+<div id="orders"></div>
+
+<script>
+function loadOrders(){
+
+  const orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+  let html = "";
+
+  orders.forEach((o,i)=>{
+
+    html += `
+      <div class="card">
+        <b>${o.service}</b><br>
+        ${o.plan}<br>
+        ₹${o.price}<br>
+        UTR: ${o.utr}<br>
+        Status: ${o.status}<br>
+
+        <button class="approve" onclick="approve(${i})">Approve</button>
+        <button class="reject" onclick="reject(${i})">Reject</button>
+      </div>
+    `;
+  });
+
+  document.getElementById("orders").innerHTML = html;
+}
+
+function approve(i){
+  let orders = JSON.parse(localStorage.getItem("orders"));
+  orders[i].status = "Completed ✅";
+  localStorage.setItem("orders", JSON.stringify(orders));
+  loadOrders();
+}
+
+function reject(i){
+  let orders = JSON.parse(localStorage.getItem("orders"));
+  orders[i].status = "Rejected ❌";
+  localStorage.setItem("orders", JSON.stringify(orders));
+  loadOrders();
+}
+
+loadOrders();
+</script>
+
+</body>
+</html>

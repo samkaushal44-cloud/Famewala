@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Plans</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f5f5;
+      padding: 10px;
+    }
+
+    .box {
+      padding: 20px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      color: white;
+      background: linear-gradient(45deg,#ff416c,#ff4b2b);
+    }
+
+    .plan-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #d9e7ef;
+      padding: 15px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      background: red;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>FameWala</h2>
+
+<div class="box">
+  <h3 id="serviceName">Loading...</h3>
+  <p id="serviceDesc"></p>
+</div>
+
+<div id="plansContainer"></div>
+
+<script src="script.js"></script>
+
+<script>
+  // SAFE LOAD (error avoid)
+  window.onload = function() {
+    if (typeof loadPlans === "function") {
+      loadPlans();
+    } else {
+      alert("script.js not loaded ❌");
+    }
+  };
+</script>
+
+</body>
+</html>

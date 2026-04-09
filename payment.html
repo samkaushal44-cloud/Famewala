@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payment</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: linear-gradient(135deg,#667eea,#764ba2);
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 320px;
+      margin: auto;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    img {
+      width: 200px;
+      margin: 10px 0;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 12px;
+      border: none;
+      border-radius: 20px;
+      background: green;
+      color: white;
+      font-weight: bold;
+      width: 100%;
+    }
+
+    #successBox {
+      display:none;
+      position:fixed;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      background:white;
+      padding:25px;
+      border-radius:20px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.3);
+      text-align:center;
+      width:280px;
+      z-index:999;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <h2>Complete Payment</h2>
+
+  <p id="payInfo"></p>
+
+  <!-- 🔥 QR CODE -->
+  <img id="qrCode">
+
+  <p><b>UPI ID:</b> 8219503445-3@ybl</p>
+
+  <p>📌 Scan & Pay using GPay / PhonePe / Paytm</p>
+
+  <input id="utr" placeholder="Enter UTR Number">
+
+  <button onclick="submitOrder()">I Paid ✅</button>
+
+</div>
+
+<!-- 🔥 SUCCESS POPUP -->
+<div id="successBox">
+  <h2 style="color:green;">✅ Order Placed</h2>
+  <p id="orderText"></p>
+  <button onclick="closeBox()">OK</button>
+</div>
+
+<script src="script.js"></script>
+
+<script>
+
+// 🔥 PAYMENT INFO SHOW
+const service = localStorage.getItem("orderService");
+const plan = localStorage.getItem("orderPlan");
+const price = localStorage.getItem("orderPrice");
+
+document.getElementById("payInfo").innerText =
+service + " | " + plan + " | ₹" + price;
+
+
+// 🔥 QR WITH AMOUNT
+const upi = "8219503445-3@ybl";
+
+const qrData = `upi://pay?pa=${upi}&am=${price}&cu=INR`;
+
+document.getElementById("qrCode").src =
+`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`;
+
+</script>
+
+</body>
+</html>
