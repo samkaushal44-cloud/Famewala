@@ -136,7 +136,7 @@ function buyNow(service, plan, price) {
   window.location.href = "payment.html";
 }
 
-// 🔥 LOAD PAYMENT (QR + AMOUNT FIX)
+// 🔥 LOAD PAYMENT
 function loadPayment() {
 
   const service = localStorage.getItem("orderService");
@@ -205,7 +205,7 @@ UTR: ${utr}`
     })
   });
 
-  // 🔥 SUCCESS PAGE DATA
+  // 🔥 SUCCESS DATA
   localStorage.setItem("successOrderId", orderId);
   localStorage.setItem("successService", service);
   localStorage.setItem("successPlan", plan);
@@ -214,12 +214,12 @@ UTR: ${utr}`
   window.location.href = "success.html";
 }
 
-// 🔥 TRACK BUTTON
+// 🔥 TRACK BUTTON FUNCTION (FIXED)
 function goTrack(){
   window.location.href = "track.html";
 }
 
-// 🔥 GLOBAL FIX (IMPORTANT)
+// 🔥 GLOBAL FIX (VERY IMPORTANT)
 window.openService = openService;
 window.loadPlans = loadPlans;
 window.buyNow = buyNow;
