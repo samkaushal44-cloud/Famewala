@@ -1,168 +1,185 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>FameWala</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FameWala</title>
 
-  <style>
-    body {
-      font-family: Arial;
-      background: #f5f5f5;
-      padding: 10px;
-    }
+<style>
+body{
+  font-family: Arial;
+  background: #0f172a;
+  margin:0;
+  color:white;
+}
 
-    h1 {
-      margin-bottom: 20px;
-    }
+.header{
+  padding:20px;
+  font-size:24px;
+  font-weight:bold;
+}
 
-    .card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px;
-      border-radius: 15px;
-      margin-bottom: 15px;
-    }
+.container{
+  padding:15px;
+}
 
-    .left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+.card{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px;
+  margin-bottom:12px;
+  border-radius:16px;
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+}
 
-    img {
-      width: 40px;
-      height: 40px;
-    }
+.card img{
+  width:40px;
+}
 
-    button {
-      border: none;
-      padding: 10px 18px;
-      border-radius: 20px;
-      color: white;
-      font-weight: bold;
-    }
+.left{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
 
-    /* Colors */
-    .yt { background: #f3dcdc; }
-    .ig { background: #f2d9e6; }
-    .fb { background: #d9e7ef; }
-    .tg { background: #d9edf5; }
-    .nf { background: #f3dcdc; }
-    .sp { background: #dff5e3; }
-    .pr { background: #dde3f5; }
-    .ds { background: #d9e7ef; }
+.title{
+  font-size:16px;
+  font-weight:bold;
+}
 
-    .btn-red { background: red; }
-    .btn-pink { background: #ff3c7d; }
-    .btn-blue { background: #2f80ed; }
-    .btn-sky { background: #00aaff; }
-    .btn-green { background: #28a745; }
-    .btn-black { background: black; }
-    .btn-yellow { background: #f4c20d; color: black; }
-  </style>
-</head>
+.desc{
+  font-size:12px;
+  opacity:0.7;
+}
 
-<body>
+.btn{
+  padding:8px 16px;
+  border-radius:20px;
+  border:none;
+  color:white;
+  cursor:pointer;
+  font-weight:bold;
+}
 
-<h1>FameWala</h1>
-
-<!-- YouTube -->
-<div class="card yt">
-  <div class="left">
-    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png">
-    <div>
-      <b>YouTube</b><br>
-      Grow your channel
-    </div>
-  </div>
-  <button class="btn-red" onclick="openService('youtube')">Plans →</button>
-</div>
-
-<!-- Instagram -->
-<div class="card ig">
-  <div class="left">
-    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
-    <div>
-      <b>Instagram</b><br>
-      Boost followers
-    </div>
-  </div>
-  <button class="btn-pink" onclick="openService('instagram')">Plans →</button>
-</div>
-
-<!-- Facebook -->
-<div class="card fb">
-  <div class="left">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png">
-    <div>
-      <b>Facebook</b><br>
-      Connect people
-    </div>
-  </div>
-  <button class="btn-blue" onclick="openService('facebook')">Plans →</button>
-</div>
-
-<!-- Telegram -->
-<div class="card tg">
-  <div class="left">
-    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">
-    <div>
-      <b>Telegram</b><br>
-      Grow channel
-    </div>
-  </div>
-  <button class="btn-sky" onclick="openService('telegram')">Plans →</button>
-</div>
-
-<!-- Netflix -->
-<div class="card nf">
-  <div class="left">
-    <img src="https://cdn-icons-png.flaticon.com/512/5977/5977590.png">
-    <div>
-      <b>Netflix</b><br>
-      Watch shows
-    </div>
-  </div>
-  <button class="btn-red" onclick="openService('netflix')">Plans →</button>
-</div>
-
-<!-- Spotify -->
-<div class="card sp">
-  <div class="left">
-    <img src="https://cdn-icons-png.flaticon.com/512/174/174872.png">
-    <div>
-      <b>Spotify</b><br>
-      Music & podcasts
-    </div>
-  </div>
-  <button class="btn-green" onclick="openService('spotify')">Plans →</button>
-</div>
-
-<!-- Amazon Prime -->
-<div class="card pr">
-  <div class="left">
-    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968885.png">
-    <div>
-      <b>Amazon Prime</b><br>
-      Movies & delivery
-    </div>
-  </div>
-  <button class="btn-blue" onclick="openService('prime')">Plans →</button>
-</div>
-
-<!-- Disney -->
-<div class="card ds">
-  <div class="left">
-    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968672.png">
-    <div>
-      <b>Disney+</b><br>
-      OTT content
-    </div>
-  </div>
-  <button class="btn-blue" onclick="openService('disney')">Plans →</button>
-</div>
+/* COLORS */
+.youtube{background:linear-gradient(45deg,#ff416c,#ff4b2b);}
+.instagram{background:linear-gradient(45deg,#ff6a00,#ee0979);}
+.facebook{background:linear-gradient(45deg,#396afc,#2948ff);}
+.telegram{background:linear-gradient(45deg,#00c6ff,#0072ff);}
+.netflix{background:linear-gradient(45deg,#ff0000,#8b0000);}
+.spotify{background:linear-gradient(45deg,#1db954,#0f9b0f);}
+.prime{background:linear-gradient(45deg,#2193b0,#6dd5ed);}
+.disney{background:linear-gradient(45deg,#373b44,#4286f4);}
+</style>
 
 <script src="script.js"></script>
+
+</head>
+<body>
+
+<div class="header">🔥 FameWala</div>
+
+<div class="container">
+
+  <!-- YouTube -->
+  <div class="card">
+    <div class="left">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png">
+      <div>
+        <div class="title">YouTube</div>
+        <div class="desc">Grow your channel</div>
+      </div>
+    </div>
+    <button class="btn youtube" onclick="openService('youtube')">Plans →</button>
+  </div>
+
+  <!-- Instagram -->
+  <div class="card">
+    <div class="left">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+      <div>
+        <div class="title">Instagram</div>
+        <div class="desc">Boost followers</div>
+      </div>
+    </div>
+    <button class="btn instagram" onclick="openService('instagram')">Plans →</button>
+  </div>
+
+  <!-- Facebook -->
+  <div class="card">
+    <div class="left">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png">
+      <div>
+        <div class="title">Facebook</div>
+        <div class="desc">Connect people</div>
+      </div>
+    </div>
+    <button class="btn facebook" onclick="openService('facebook')">Plans →</button>
+  </div>
+
+  <!-- Telegram -->
+  <div class="card">
+    <div class="left">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">
+      <div>
+        <div class="title">Telegram</div>
+        <div class="desc">Grow channel</div>
+      </div>
+    </div>
+    <button class="btn telegram" onclick="openService('telegram')">Plans →</button>
+  </div>
+
+  <!-- Netflix -->
+  <div class="card">
+    <div class="left">
+      <img src="https://cdn-icons-png.flaticon.com/512/732/732228.png">
+      <div>
+        <div class="title">Netflix</div>
+        <div class="desc">Watch shows</div>
+      </div>
+    </div>
+    <button class="btn netflix" onclick="openService('netflix')">Plans →</button>
+  </div>
+
+  <!-- Spotify -->
+  <div class="card">
+    <div class="left">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111624.png">
+      <div>
+        <div class="title">Spotify</div>
+        <div class="desc">Music & podcasts</div>
+      </div>
+    </div>
+    <button class="btn spotify" onclick="openService('spotify')">Plans →</button>
+  </div>
+
+  <!-- Prime -->
+  <div class="card">
+    <div class="left">
+      <img src="https://cdn-icons-png.flaticon.com/512/732/732084.png">
+      <div>
+        <div class="title">Amazon Prime</div>
+        <div class="desc">Movies & delivery</div>
+      </div>
+    </div>
+    <button class="btn prime" onclick="openService('prime')">Plans →</button>
+  </div>
+
+  <!-- Disney -->
+  <div class="card">
+    <div class="left">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968779.png">
+      <div>
+        <div class="title">Disney+ Hotstar</div>
+        <div class="desc">OTT content</div>
+      </div>
+    </div>
+    <button class="btn disney" onclick="openService('disney')">Plans →</button>
+  </div>
+
+</div>
 
 </body>
 </html>
