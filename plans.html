@@ -1,66 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Plans</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plans</title>
 
-  <style>
-    body {
-      font-family: Arial;
-      background: #f5f5f5;
-      padding: 10px;
-    }
+<style>
+body{
+  font-family: Arial;
+  background:#0f172a;
+  color:white;
+  margin:0;
+}
 
-    .box {
-      padding: 20px;
-      border-radius: 20px;
-      margin-bottom: 20px;
-      color: white;
-      background: linear-gradient(45deg,#ff416c,#ff4b2b);
-    }
+.header{
+  padding:20px;
+  font-size:22px;
+  font-weight:bold;
+}
 
-    .plan-card {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #d9e7ef;
-      padding: 15px;
-      border-radius: 15px;
-      margin-bottom: 15px;
-    }
+/* TOP BOX */
+.box{
+  margin:15px;
+  padding:20px;
+  border-radius:16px;
+  color:white;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
 
-    button {
-      background: red;
-      color: white;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 20px;
-    }
-  </style>
+/* PLANS */
+.plan-card{
+  margin:15px;
+  padding:15px;
+  border-radius:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+/* BUTTON */
+.plan-btn{
+  padding:8px 16px;
+  border-radius:20px;
+  border:none;
+  background:#ff3b3b;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* TEXT */
+h3{margin:0;}
+p{margin:4px 0; font-size:12px; opacity:0.7;}
+
+</style>
+
+<script src="script.js"></script>
+
 </head>
+<body onload="loadPlans()">
 
-<body>
+<div class="header">🔥 FameWala</div>
 
-<h2>FameWala</h2>
-
-<div class="box">
+<div class="box" id="serviceBox">
   <h3 id="serviceName">Loading...</h3>
   <p id="serviceDesc"></p>
 </div>
 
 <div id="plansContainer"></div>
-
-<script src="script.js"></script>
-
-<script>
-  // SAFE LOAD (error avoid)
-  window.onload = function() {
-    if (typeof loadPlans === "function") {
-      loadPlans();
-    } else {
-      alert("script.js not loaded ❌");
-    }
-  };
-</script>
 
 </body>
 </html>
