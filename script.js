@@ -144,7 +144,6 @@ function loadPayment() {
   const price = localStorage.getItem("orderPrice");
 
   if (!service) {
-    alert("No Order Found ❌");
     window.location.href = "index.html";
     return;
   }
@@ -207,12 +206,11 @@ UTR: ${utr}`
     })
   });
 
-  alert("✅ Order Placed!\nOrder ID: " + orderId);
-
-  window.location.href = "track.html";
+  // 👉 DIRECT SUCCESS PAGE
+  window.location.href = "success.html";
 }
 
-// 🔥 GLOBAL FIX (IMPORTANT)
+// 🔥 GLOBAL FIX
 window.openService = openService;
 window.loadPlans = loadPlans;
 window.buyNow = buyNow;
