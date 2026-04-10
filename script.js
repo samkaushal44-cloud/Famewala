@@ -31,8 +31,7 @@ const services = {
     desc: "Connect people",
     color: "linear-gradient(45deg,#396afc,#2948ff)",
     plans: [
-      { name: "1K Likes", price: 49 },
-      { name: "5K Likes", price: 99 }
+      { name: "1K Likes", price: 49 }
     ]
   },
 
@@ -50,14 +49,13 @@ const services = {
     desc: "Watch shows",
     color: "linear-gradient(45deg,#ff0000,#8b0000)",
     plans: [
-      { name: "1 Month HD", price: 29 },
-      { name: "3 Month HD", price: 59 }
+      { name: "1 Month HD", price: 29 }
     ]
   },
 
   spotify: {
     name: "Spotify",
-    desc: "Music & podcasts",
+    desc: "Music",
     color: "linear-gradient(45deg,#1db954,#0f9b0f)",
     plans: [
       { name: "1 Month Premium", price: 29 }
@@ -66,7 +64,7 @@ const services = {
 
   prime: {
     name: "Amazon Prime",
-    desc: "Movies & delivery",
+    desc: "Movies",
     color: "linear-gradient(45deg,#2193b0,#6dd5ed)",
     plans: [
       { name: "1 Month", price: 39 }
@@ -75,11 +73,10 @@ const services = {
 
   disney: {
     name: "Disney+ Hotstar",
-    desc: "All OTT content",
+    desc: "OTT",
     color: "linear-gradient(45deg,#373b44,#4286f4)",
     plans: [
-      { name: "1 Month", price: 39 },
-      { name: "1 Year", price: 199 }
+      { name: "1 Month", price: 39 }
     ]
   }
 
@@ -95,12 +92,6 @@ function openService(serviceKey) {
 function loadPlans() {
 
   const key = localStorage.getItem("selectedService");
-
-  if (!key || !services[key]) {
-    document.body.innerHTML = "<h2 style='text-align:center'>Service Not Found ❌</h2>";
-    return;
-  }
-
   const service = services[key];
 
   document.getElementById("serviceName").innerText = service.name + " Plans";
@@ -132,21 +123,15 @@ function buyNow(service, plan, price) {
   localStorage.setItem("orderService", service);
   localStorage.setItem("orderPlan", plan);
   localStorage.setItem("orderPrice", price);
-
   window.location.href = "payment.html";
 }
 
-// 🔥 LOAD PAYMENT
+// 🔥 LOAD PAYMENT + SMART FORM
 function loadPayment() {
 
   const service = localStorage.getItem("orderService");
   const plan = localStorage.getItem("orderPlan");
   const price = localStorage.getItem("orderPrice");
-
-  if (!service) {
-    window.location.href = "index.html";
-    return;
-  }
 
   document.getElementById("orderText").innerText =
     `${service} | ${plan} | ₹${price}`;
@@ -154,16 +139,42 @@ function loadPayment() {
   const upi = `upi://pay?pa=8219503445-3@ybl&pn=FameWala&am=${price}&cu=INR`;
 
   document.getElementById("qr").src =
-    "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + encodeURIComponent(upi);
+    "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(upi);
+
+  const input = document.getElementById("userInput");
+  const email = document.getElementById("userEmail");
+
+  // 🔥 SMART INPUT CHANGE
+  if(service === "Instagram" || service === "YouTube" || service === "Facebook"){
+    input.placeholder = "Enter Username / Link";
+    email.style.display = "none";
+  }
+  else if(service === "Telegram"){
+    input.placeholder = "Enter Channel Link";
+    email.style.display = "none";
+  }
+  else{
+    input.placeholder = "Enter Name";
+    email.placeholder = "Enter Email (for OTT login)";
+    email.style.display = "block";
+  }
+
 }
 
-// 🔥 SUBMIT ORDER
+// 🔥 SUBMIT ORDER (HYBRID)
 function submitOrder() {
 
   const utr = document.getElementById("utr").value;
+  const userInput = document.getElementById("userInput").value;
+  const userEmail = document.getElementById("userEmail").value;
 
   if (!utr || utr.length < 8) {
     alert("Enter valid UTR ❌");
+    return;
+  }
+
+  if (!userInput) {
+    alert("Enter required details ❌");
     return;
   }
 
@@ -181,31 +192,37 @@ function submitOrder() {
     plan,
     price,
     utr,
+    userInput,
+    userEmail,
     status: "Processing ⏳"
   });
 
   localStorage.setItem("orders", JSON.stringify(orders));
 
   // 🔥 TELEGRAM
-  const BOT_TOKEN = "PASTE_YOUR_BOT_TOKEN";
-  const CHAT_ID = "PASTE_YOUR_CHAT_ID";
+  const BOT_TOKEN = "PASTE_TOKEN";
+  const CHAT_ID = "PASTE_ID";
 
   fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
     method: "POST",
     headers: {"Content-Type":"application/json"},
     body: JSON.stringify({
       chat_id: CHAT_ID,
-      text: `🔥 New Order
+      text: `🔥 NEW ORDER
 
 ID: ${orderId}
 Service: ${service}
 Plan: ${plan}
 Price: ₹${price}
+
+User: ${userInput}
+Email: ${userEmail}
+
 UTR: ${utr}`
     })
   });
 
-  // 🔥 SUCCESS DATA
+  // SUCCESS PAGE
   localStorage.setItem("successOrderId", orderId);
   localStorage.setItem("successService", service);
   localStorage.setItem("successPlan", plan);
@@ -214,12 +231,12 @@ UTR: ${utr}`
   window.location.href = "success.html";
 }
 
-// 🔥 TRACK BUTTON FUNCTION (FIXED)
+// 🔥 TRACK
 function goTrack(){
   window.location.href = "track.html";
 }
 
-// 🔥 GLOBAL FIX (VERY IMPORTANT)
+// 🔥 GLOBAL FIX
 window.openService = openService;
 window.loadPlans = loadPlans;
 window.buyNow = buyNow;
