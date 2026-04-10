@@ -12,35 +12,30 @@ body{
   color:white;
 }
 
-/* HEADER */
 .header{
   display:flex;
   justify-content:space-between;
-  align-items:center;
   padding:15px;
   background:#1e293b;
 }
 
-.logout-btn{
-  background:red;
+button{
+  margin-top:5px;
+  padding:6px 10px;
   border:none;
-  padding:6px 12px;
-  border-radius:10px;
-  color:white;
+  border-radius:8px;
+  font-size:12px;
 }
 
-/* CARD */
-.order{
+.approve{background:green;color:white;}
+.reject{background:red;color:white;}
+.deliver{background:#22c55e;color:white;}
+
+.card{
   background:#1e293b;
   margin:10px;
   padding:12px;
   border-radius:12px;
-}
-
-.status{
-  margin-top:5px;
-  font-size:13px;
-  opacity:0.8;
 }
 </style>
 
@@ -55,13 +50,11 @@ if(localStorage.getItem("adminLogin") !== "true"){
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <h2>Admin Panel 🔒</h2>
-  <button class="logout-btn" onclick="logout()">Logout</button>
+  <button onclick="logout()">Logout</button>
 </div>
 
-<!-- ORDERS -->
 <div id="orders"></div>
 
 <script>
@@ -70,26 +63,71 @@ if(localStorage.getItem("adminLogin") !== "true"){
 function loadOrders(){
 
   let orders = JSON.parse(localStorage.getItem("orders")) || [];
-
   let html = "";
 
-  if(orders.length === 0){
-    html = "<p style='padding:15px'>No Orders 😅</p>";
-  }
+  orders.reverse().forEach((o, i) => {
 
-  orders.reverse().forEach(o => {
     html += `
-      <div class="order">
-        <b>ID:</b> ${o.id}<br>
-        <b>${o.service}</b><br>
-        ${o.plan}<br>
-        ₹${o.price}<br>
-        <div class="status">Status: ${o.status}</div>
-      </div>
+    <div class="card">
+      <b>ID:</b> ${o.id}<br>
+      <b>${o.service}</b><br>
+      ${o.plan}<br>
+      ₹${o.price}<br>
+
+      <b>User:</b> ${o.userInput || "-"}<br>
+      <b>Email:</b> ${o.userEmail || "-"}<br>
+      <b>UTR:</b> ${o.utr}<br>
+
+      <b>Status:</b> ${o.status}<br>
+
+      ${o.loginEmail ? `
+        <hr>
+        <b>Login Email:</b> ${o.loginEmail}<br>
+        <b>Password:</b> ${o.loginPass}
+      ` : ""}
+
+      <br>
+
+      <button class="approve" onclick="updateStatus(${i}, 'Completed ✅')">Approve</button>
+      <button class="reject" onclick="updateStatus(${i}, 'Cancelled ❌')">Reject</button>
+      <button class="deliver" onclick="deliver(${i})">Deliver 🔑</button>
+
+    </div>
     `;
   });
 
   document.getElementById("orders").innerHTML = html;
+}
+
+// 🔥 UPDATE STATUS
+function updateStatus(i, status){
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+  orders[i].status = status;
+  localStorage.setItem("orders", JSON.stringify(orders));
+  location.reload();
+}
+
+// 🔥 DELIVER SYSTEM
+function deliver(i){
+
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+  let email = prompt("Enter Login Email:");
+  let pass = prompt("Enter Password:");
+
+  if(!email || !pass){
+    alert("Details required ❌");
+    return;
+  }
+
+  orders[i].loginEmail = email;
+  orders[i].loginPass = pass;
+  orders[i].status = "Completed ✅";
+
+  localStorage.setItem("orders", JSON.stringify(orders));
+
+  alert("Delivered Successfully ✅");
+  location.reload();
 }
 
 // 🔥 LOGOUT
