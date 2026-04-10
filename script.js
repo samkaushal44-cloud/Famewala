@@ -200,8 +200,8 @@ function submitOrder() {
   localStorage.setItem("orders", JSON.stringify(orders));
 
   // 🔥 TELEGRAM
-  const BOT_TOKEN = "PASTE_TOKEN";
-  const CHAT_ID = "PASTE_ID";
+  const BOT_TOKEN = "8772461049:AAGbsFSIDCimgTgO8IMQdGSKMjfaG8G2IhE";
+  const CHAT_ID = "7407239965";
 
   fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
     method: "POST",
