@@ -186,7 +186,7 @@ function submitOrder() {
 
   localStorage.setItem("orders", JSON.stringify(orders));
 
-  // 🔥 TELEGRAM (TOKEN DALNA MAT BHULNA)
+  // 🔥 TELEGRAM
   const BOT_TOKEN = "PASTE_YOUR_BOT_TOKEN";
   const CHAT_ID = "PASTE_YOUR_CHAT_ID";
 
@@ -211,13 +211,18 @@ UTR: ${utr}`
   localStorage.setItem("successPlan", plan);
   localStorage.setItem("successPrice", price);
 
-  // 🔥 REDIRECT (NO ALERT)
   window.location.href = "success.html";
 }
 
-// 🔥 GLOBAL FIX
+// 🔥 TRACK BUTTON
+function goTrack(){
+  window.location.href = "track.html";
+}
+
+// 🔥 GLOBAL FIX (IMPORTANT)
 window.openService = openService;
 window.loadPlans = loadPlans;
 window.buyNow = buyNow;
 window.loadPayment = loadPayment;
 window.submitOrder = submitOrder;
+window.goTrack = goTrack;
