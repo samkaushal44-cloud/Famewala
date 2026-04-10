@@ -39,7 +39,6 @@ button{
 }
 </style>
 
-<!-- 🔒 LOGIN PROTECTION -->
 <script>
 if(localStorage.getItem("adminLogin") !== "true"){
   window.location.href = "login.html";
@@ -59,13 +58,14 @@ if(localStorage.getItem("adminLogin") !== "true"){
 
 <script>
 
-// 🔥 LOAD ORDERS
 function loadOrders(){
 
   let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
   let html = "";
 
-  orders.reverse().forEach((o, i) => {
+  // 🔥 REVERSE WITHOUT BREAKING ID
+  orders.slice().reverse().forEach(o => {
 
     html += `
     <div class="card">
@@ -88,9 +88,9 @@ function loadOrders(){
 
       <br>
 
-      <button class="approve" onclick="updateStatus(${i}, 'Completed ✅')">Approve</button>
-      <button class="reject" onclick="updateStatus(${i}, 'Cancelled ❌')">Reject</button>
-      <button class="deliver" onclick="deliver(${i})">Deliver 🔑</button>
+      <button class="approve" onclick="updateStatus('${o.id}','Completed ✅')">Approve</button>
+      <button class="reject" onclick="updateStatus('${o.id}','Cancelled ❌')">Reject</button>
+      <button class="deliver" onclick="deliver('${o.id}')">Deliver 🔑</button>
 
     </div>
     `;
@@ -99,16 +99,24 @@ function loadOrders(){
   document.getElementById("orders").innerHTML = html;
 }
 
-// 🔥 UPDATE STATUS
-function updateStatus(i, status){
+// 🔥 STATUS FIX
+function updateStatus(id, status){
+
   let orders = JSON.parse(localStorage.getItem("orders")) || [];
-  orders[i].status = status;
+
+  orders = orders.map(o => {
+    if(o.id === id){
+      o.status = status;
+    }
+    return o;
+  });
+
   localStorage.setItem("orders", JSON.stringify(orders));
   location.reload();
 }
 
-// 🔥 DELIVER SYSTEM
-function deliver(i){
+// 🔥 DELIVER FIX
+function deliver(id){
 
   let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
@@ -120,13 +128,18 @@ function deliver(i){
     return;
   }
 
-  orders[i].loginEmail = email;
-  orders[i].loginPass = pass;
-  orders[i].status = "Completed ✅";
+  orders = orders.map(o => {
+    if(o.id === id){
+      o.loginEmail = email;
+      o.loginPass = pass;
+      o.status = "Completed ✅";
+    }
+    return o;
+  });
 
   localStorage.setItem("orders", JSON.stringify(orders));
 
-  alert("Delivered Successfully ✅");
+  alert("Delivered ✅");
   location.reload();
 }
 
@@ -136,7 +149,6 @@ function logout(){
   window.location.href = "login.html";
 }
 
-// LOAD
 loadOrders();
 
 </script>
