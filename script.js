@@ -105,7 +105,6 @@ function loadPlans() {
 
   document.getElementById("serviceName").innerText = service.name + " Plans";
   document.getElementById("serviceDesc").innerText = service.desc;
-
   document.getElementById("serviceBox").style.background = service.color;
 
   let html = "";
@@ -137,8 +136,9 @@ function buyNow(service, plan, price) {
   window.location.href = "payment.html";
 }
 
-// 🔥 LOAD PAYMENT
+// 🔥 LOAD PAYMENT (QR + AMOUNT FIX)
 function loadPayment() {
+
   const service = localStorage.getItem("orderService");
   const plan = localStorage.getItem("orderPlan");
   const price = localStorage.getItem("orderPrice");
@@ -154,7 +154,7 @@ function loadPayment() {
   const upi = `upi://pay?pa=8219503445-3@ybl&pn=FameWala&am=${price}&cu=INR`;
 
   document.getElementById("qr").src =
-    "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(upi);
+    "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + encodeURIComponent(upi);
 }
 
 // 🔥 SUBMIT ORDER
@@ -185,9 +185,8 @@ function submitOrder() {
   });
 
   localStorage.setItem("orders", JSON.stringify(orders));
-  localStorage.setItem("lastOrderId", orderId);
 
-  // 🔥 TELEGRAM
+  // 🔥 TELEGRAM (TOKEN DALNA MAT BHULNA)
   const BOT_TOKEN = "PASTE_YOUR_BOT_TOKEN";
   const CHAT_ID = "PASTE_YOUR_CHAT_ID";
 
@@ -206,7 +205,13 @@ UTR: ${utr}`
     })
   });
 
-  // 👉 DIRECT SUCCESS PAGE
+  // 🔥 SUCCESS PAGE DATA
+  localStorage.setItem("successOrderId", orderId);
+  localStorage.setItem("successService", service);
+  localStorage.setItem("successPlan", plan);
+  localStorage.setItem("successPrice", price);
+
+  // 🔥 REDIRECT (NO ALERT)
   window.location.href = "success.html";
 }
 
@@ -214,5 +219,5 @@ UTR: ${utr}`
 window.openService = openService;
 window.loadPlans = loadPlans;
 window.buyNow = buyNow;
-window.submitOrder = submitOrder;
 window.loadPayment = loadPayment;
+window.submitOrder = submitOrder;
