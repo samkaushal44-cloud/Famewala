@@ -1,66 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Track Order</title>
+<title>Track Order</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial;
-      background: linear-gradient(135deg,#667eea,#764ba2);
-      text-align: center;
-      padding-top: 80px;
-      color: white;
-    }
+<style>
+body{
+  font-family:sans-serif;
+  background:#0f172a;
+  color:white;
+  text-align:center;
+  padding:20px;
+}
 
-    .box {
-      background: white;
-      color: black;
-      padding: 20px;
-      border-radius: 20px;
-      width: 300px;
-      margin: auto;
-    }
+.box{
+  background:#1e293b;
+  padding:20px;
+  border-radius:15px;
+  margin-top:20px;
+}
 
-    input {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-    }
+input{
+  width:90%;
+  padding:10px;
+  border-radius:10px;
+  border:none;
+}
 
-    button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 20px;
-      background: green;
-      color: white;
-    }
-  </style>
+button{
+  margin-top:10px;
+  padding:10px;
+  width:90%;
+  border:none;
+  border-radius:20px;
+  background:#22c55e;
+  color:white;
+}
+</style>
 </head>
 
 <body>
 
-<div class="box">
-  <h2>📦 Track Order</h2>
+<h2>🔍 Track Your Order</h2>
 
-  <input id="id" placeholder="Enter Order ID">
-  <button onclick="check()">Check</button>
+<input id="orderId" placeholder="Enter Order ID">
 
-  <div id="result"></div>
-</div>
+<button onclick="trackOrder()">Track</button>
+
+<div id="result"></div>
 
 <script>
-function check(){
-  let orders=JSON.parse(localStorage.getItem("orders"))||[];
-  let o=orders.find(x=>x.id===id.value);
 
-  if(o){
-    result.innerHTML=`Status: ${o.status}`;
-  } else {
-    result.innerHTML="Not Found ❌";
+function trackOrder(){
+
+  let id = document.getElementById("orderId").value.trim();
+
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+  let found = orders.find(o => o.id === id);
+
+  if(!found){
+    document.getElementById("result").innerHTML =
+    "<div class='box'>❌ Order Not Found</div>";
+    return;
   }
+
+  let html = `
+    <div class="box">
+      <b>ID:</b> ${found.id}<br><br>
+
+      <b>Service:</b> ${found.service}<br>
+      <b>Plan:</b> ${found.plan}<br>
+      <b>Price:</b> ₹${found.price}<br><br>
+
+      <b>Status:</b> ${found.status}<br>
+  `;
+
+  // 🔥 LOGIN DETAILS (DELIVER SYSTEM)
+  if(found.loginEmail){
+    html += `
+      <hr>
+      <h3>🎁 Login Details</h3>
+      <b>Email:</b> ${found.loginEmail}<br>
+      <b>Password:</b> ${found.loginPass}
+    `;
+  }
+
+  html += `</div>`;
+
+  document.getElementById("result").innerHTML = html;
 }
+
 </script>
 
 </body>
