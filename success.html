@@ -1,53 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Order Success</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{
-  font-family: Arial;
-  background:#0f172a;
-  color:white;
-  text-align:center;
-  padding:40px;
+body {
+  margin:0;
+  font-family:sans-serif;
+  background: linear-gradient(45deg,#667eea,#764ba2);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
 }
 
-.card{
-  background:#1e293b;
-  padding:20px;
+.card {
+  background:#fff;
+  padding:25px;
   border-radius:15px;
+  text-align:center;
+  width:90%;
+  max-width:350px;
 }
 
-h2{color:#22c55e;}
+h2 {
+  color:green;
+}
 
-p{margin:8px 0;}
+.btn {
+  margin-top:15px;
+  padding:12px;
+  width:100%;
+  border:none;
+  border-radius:10px;
+  background:#111;
+  color:#fff;
+  font-size:16px;
+}
 </style>
-
-<script>
-function loadSuccess(){
-  const id = localStorage.getItem("lastOrderId");
-  const service = localStorage.getItem("orderService");
-  const plan = localStorage.getItem("orderPlan");
-  const price = localStorage.getItem("orderPrice");
-
-  document.getElementById("data").innerHTML = `
-    <p><b>Order ID:</b> ${id}</p>
-    <p><b>Service:</b> ${service}</p>
-    <p><b>Plan:</b> ${plan}</p>
-    <p><b>Price:</b> ₹${price}</p>
-    <p><b>Status:</b> Processing ⏳</p>
-  `;
-}
-</script>
-
 </head>
-<body onload="loadSuccess()">
+
+<body>
 
 <div class="card">
   <h2>✅ Order Placed</h2>
-  <div id="data"></div>
+
+  <p id="details"></p>
+
+  <button class="btn" onclick="goHome()">Back Home</button>
 </div>
+
+<script>
+const id = localStorage.getItem("successOrderId");
+const service = localStorage.getItem("successService");
+const plan = localStorage.getItem("successPlan");
+const price = localStorage.getItem("successPrice");
+
+document.getElementById("details").innerHTML =
+`<b>ID:</b> ${id}<br>
+<b>${service}</b><br>
+${plan}<br>
+₹${price}`;
+
+function goHome(){
+  window.location.href = "index.html";
+}
+</script>
 
 </body>
 </html>
