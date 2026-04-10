@@ -6,102 +6,60 @@
 
 <style>
 body{
-  margin:0;
-  font-family: Arial;
-  background: linear-gradient(135deg,#667eea,#764ba2);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-}
-
-/* CARD */
-.card{
-  width:90%;
-  max-width:320px;
-  background:white;
-  border-radius:16px;
-  padding:18px;
+  font-family:sans-serif;
+  background:#0f172a;
+  color:white;
   text-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  padding:20px;
 }
 
-/* TITLE */
-h2{
-  margin:0;
-  font-size:18px;
+.card{
+  background:#1e293b;
+  padding:20px;
+  border-radius:15px;
 }
 
-/* ORDER TEXT */
-.order{
-  font-size:13px;
-  margin:8px 0 12px;
-}
-
-/* QR */
-.qr{
-  width:180px;
-  margin:10px auto;
-}
-
-/* UPI */
-.upi{
-  font-size:12px;
-  margin-top:8px;
-}
-
-/* INFO */
-.info{
-  font-size:12px;
-  margin:8px 0;
-  color:#555;
-}
-
-/* INPUT */
 input{
-  width:100%;
+  width:90%;
   padding:10px;
-  border-radius:10px;
-  border:1px solid #ccc;
   margin-top:10px;
-  font-size:13px;
+  border-radius:10px;
+  border:none;
 }
 
-/* BUTTON */
 button{
-  width:100%;
+  width:90%;
   padding:10px;
   margin-top:10px;
   border:none;
   border-radius:20px;
-  background:#16a34a;
+  background:#22c55e;
   color:white;
-  font-weight:bold;
-  font-size:14px;
 }
-
 </style>
 
 <script src="script.js"></script>
-
 </head>
+
 <body onload="loadPayment()">
 
 <div class="card">
 
-  <h2>Complete Payment</h2>
+<h2>Complete Payment</h2>
 
-  <div class="order" id="orderText"></div>
+<p id="orderText"></p>
 
-  <img id="qr" class="qr">
+<img id="qr" width="200">
 
-  <div class="upi">UPI ID: <b>8219503445-3@ybl</b></div>
+<p>UPI: 8219503445-3@ybl</p>
 
-  <div class="info">📌 Scan & Pay using GPay / PhonePe / Paytm</div>
+<!-- 🔥 SMART INPUT -->
+<input id="userInput" placeholder="">
+<input id="userEmail" placeholder="">
 
-  <input type="text" id="utr" placeholder="Enter UTR Number">
+<input id="utr" placeholder="Enter UTR Number">
 
-  <button onclick="submitOrder()">I Paid ✅</button>
+<button onclick="submitOrder()">I Paid ✅</button>
 
 </div>
 
